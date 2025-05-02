@@ -9,6 +9,9 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
+import { GenreModule } from './genre/genre.module';
+import { FilmModule } from './film/film.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -33,7 +36,10 @@ import { PostModule } from './post/post.module';
     }),
     AuthModule,
     UserModule,
-    PostModule
+    PostModule,
+    GenreModule,
+    FilmModule,
+    CommentModule
   ],
   controllers: [AppController],
   providers: [
