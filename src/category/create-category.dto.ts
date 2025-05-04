@@ -1,7 +1,8 @@
+// filepath: c:\Users\ASUS\song-management-be\src\genre\create-category.dto.ts
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class CreateGenreDTO {
+export class CreateCategoryDTO {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
@@ -10,5 +11,5 @@ export class CreateGenreDTO {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  description: string;
+  deskripsi: string;
 }

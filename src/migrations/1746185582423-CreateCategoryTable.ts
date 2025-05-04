@@ -1,16 +1,14 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateFilmTable1746185544160 implements MigrationInterface {
+export class CreateGenreTable1746185582423 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE film (
+            CREATE TABLE category (
                 id SERIAL PRIMARY KEY,
                 user_id INTEGER NOT NULL,
-                title VARCHAR(255) NOT NULL,
-                director TEXT,
-                genre_id INTEGER,
-                image_url TEXT,
+                name VARCHAR(255) NOT NULL,
+                deskripsi TEXT,
                 created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         
@@ -19,11 +17,23 @@ export class CreateFilmTable1746185544160 implements MigrationInterface {
                     REFERENCES Users(id)
                     ON DELETE CASCADE
             );
+          `);
+          await queryRunner.query(`
+            ALTER TABLE song
+            ADD CONSTRAINT fk_category
+            FOREIGN KEY (category_id)
+            REFERENCES category(id)
+            ON DELETE SET NULL;
         `);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`DROP TABLE film;`)
+        await queryRunner.query(`
+            ALTER TABLE song
+            DROP CONSTRAINT IF EXISTS fk_category;
+        `);
+        
+        await queryRunner.query(`DROP TABLE category;`);
     }
 
 }

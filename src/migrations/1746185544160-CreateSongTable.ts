@@ -1,32 +1,29 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateCommentTable1746185626199 implements MigrationInterface {
+export class CreateFilmTable1746185544160 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE comment (
+            CREATE TABLE song (
                 id SERIAL PRIMARY KEY,
                 user_id INTEGER NOT NULL,
-                film_id INTEGER NOT NULL,
-                comment TEXT NOT NULL,
+                title VARCHAR(255) NOT NULL,
+                artist TEXT,
+                category_id INTEGER,
+                image_url TEXT,
                 created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         
                 CONSTRAINT fk_user
                     FOREIGN KEY(user_id) 
                     REFERENCES Users(id)
-                    ON DELETE CASCADE,
-                    
-                CONSTRAINT fk_film
-                    FOREIGN KEY(film_id)
-                    REFERENCES film(id)
                     ON DELETE CASCADE
             );
         `);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`DROP TABLE comment;`)
+        await queryRunner.query(`DROP TABLE song;`)
     }
 
 }
